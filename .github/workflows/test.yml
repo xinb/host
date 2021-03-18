@@ -68,7 +68,7 @@ jobs:
       - name: Pull Changes
         uses: actions-go/push@master
         with:
-          token: ${{ secrets.TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: ${{ matrix.version }}-${{ matrix.config }}
           remote: origin
           author-name: github-actions
