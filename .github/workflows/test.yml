@@ -2,18 +2,21 @@ name: Speed Test
 
 on:
   workflow_dispatch:
+    inputs:
+      xrayversion:
+        description: 'Xray Version'     
+        required: true
+        default: '1.3.0'
+      config:
+        description: 'Config Setting'
+        requried: true
+        default: 'ss_aes128' 
 jobs:
-  build:
-    strategy:
-      matrix:
-        # Xray 1.4.0，1.3.1 with config
-        version: [1.4.0, 1.3.1]
-        config: [ss_aes128, vmess_tcp]
-      fail-fast: false
+  Test:
     runs-on: ubuntu-latest
     env:
-      VERSION: ${{ matrix.version }}
-      CONFIG: ${{ matrix.config }}
+      VERSION: ${{ github.event.inputs.xrayversion }}
+      CONFIG: ${{ github.event.inputs.config }}
     steps:
       - name: Checkout codebase
         uses: actions/checkout@v2
@@ -45,14 +48,14 @@ jobs:
           ./server/xray -config ./server/server.json > server.file 2>&1 &
           
           ./client/xray -config ./client/client.json > client.file 2>&1 &
-          cpulimit -e xray -l 60 > limit.md 2>&1 &
+          cpulimit -e xray -l 60 > limit.txt 2>&1 &
           sleep 5s
-          iperf3 -siperf3 -s > $(echo $VERSION)-$(echo $CONFIG)_server.md 2>&1 &
+          iperf3 -siperf3 -s > $(echo $VERSION)-$(echo $CONFIG)_server.txt 2>&1 &
           sleep 5s
-          proxychains  iperf3 -c 127.0.0.1 -t 10 > $(echo $VERSION)-$(echo $CONFIG)-$(date +'%Y-%m-%d')_client.md 2>&1 &
+          proxychains  iperf3 -c 127.0.0.1 -t 10 > $(echo $VERSION)-$(echo $CONFIG)-$(date +'%Y-%m-%d')_client.txt 2>&1 &
           sleep 15s
           popd || exit 1
-          cp ./test/*_client.md ./result
+          cp ./test/*_client.txt ./result
       - name: Upload files to Artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -63,7 +66,7 @@ jobs:
       - name: Clean
         run: |
           rm -rf ./test
-          git add ./result/$(echo $VERSION)-$(echo $CONFIG)-$(date +'%Y-%m-%d')_client.md
+          git add ./result/$(echo $VERSION)-$(echo $CONFIG)-$(date +'%Y-%m-%d')_client.txt
       - name: Pull Changes
         uses: actions-go/push@master
         with:
