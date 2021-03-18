@@ -53,7 +53,7 @@ jobs:
           proxychains  iperf3 -c 127.0.0.1 -t 10 > $(echo $VERSION)-$(echo $CONFIG)-$(date +'%Y-%m-%d')_client.md 2>&1 &
           sleep 15s
           popd || exit 1
-          cp ./test/$(echo $VERSION)-$(echo $CONFIG)-*_client.md ./result
+          cp ./test/*_client.md ./result
       - name: Upload files to Artifacts
         uses: actions/upload-artifact@v2
         with:
