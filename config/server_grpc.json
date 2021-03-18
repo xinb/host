@@ -159,8 +159,58 @@
                     ]
                 }
             }
+        },
+        {
+            "port": 20006,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "238b0346-3dc8-4af9-8e3e-1f666265b1f2"
+                    }
+                ],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "grpc",
+                "security": "tls",
+                "grpcSettings": {
+                    "serviceName": "test"
+                },
+                "tlsSettings": {
+                    "alpn": [
+                        "h2",
+                        "http/1.1"
+                    ],
+                    "serverName": "safe.taobao.com",
+                    "certificates": [
+                        {
+                            "usage": "issue",
+                            "certificate": [
+                                "-----BEGIN CERTIFICATE-----",
+                                "MIIBfzCCASagAwIBAgIRAOo7G8URFqThTRf0wdQXjWUwCgYIKoZIzj0EAwIwJjER",
+                                "MA8GA1UEChMIWHJheSBJbmMxETAPBgNVBAMTCFhyYXkgSW5jMB4XDTIxMDMxODA5",
+                                "MDgyNVoXDTIxMDYxNjEwMDgyNVowJjERMA8GA1UEChMIWHJheSBJbmMxETAPBgNV",
+                                "BAMTCFhyYXkgSW5jMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE+dbueqM/Nzpw",
+                                "y0+3Hrexf/5hqqq/2T2EZE8nbDPSCLk7pPcTbaehyhqY0pd7U/m68d7FNU17/NgA",
+                                "8qcN+HZvVKM1MDMwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMB",
+                                "MAwGA1UdEwEB/wQCMAAwCgYIKoZIzj0EAwIDRwAwRAIgV8sG9jQY8aCqcqPWaLO2",
+                                "DmALUa6BxMxm8zlZCGTTuLQCIApoe6nXr47bIEteBCHIijUOt6ZlxfEzr4OUiPmF",
+                                "UeP6",
+                                "-----END CERTIFICATE-----"
+                            ],
+                            "key": [
+                                "-----BEGIN RSA PRIVATE KEY-----",
+                                "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgHQejIjh1EVKQqD+3",
+                                "ZxzldoYHQwjmvAWVjMAHqI1She2hRANCAAT51u56oz83OnDLT7cet7F//mGqqr/Z",
+                                "PYRkTydsM9IIuTuk9xNtp6HKGpjSl3tT+brx3sU1TXv82ADypw34dm9U",
+                                "-----END RSA PRIVATE KEY-----"
+                            ]
+                        }
+                    ]
+                }
+            }
         }
-
     ],
     "outbounds": [
         {
