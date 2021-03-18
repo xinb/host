@@ -30,11 +30,11 @@ jobs:
 
       - name: Begin Test
         run: |
-          apt install iperf3
-          apt install proxychains 
-          apt install cpulimit
+          sudo apt install iperf3
+          sudo apt install proxychains 
+          sudo apt install cpulimit
           wget https://raw.githubusercontent.com/xinb/host/main/proxychains.conf
-          cp ./proxychains.conf /etc/proxychains.conf
+          sudo cp ./proxychains.conf /etc/proxychains.conf
           ./server/xray -config ./server/server.json > server.file 2>&1 &
           ./client/xray -config ./client/client.json > client.file 2>&1 &
           iperf3 -siperf3 -s > iperf3_server.file 2>&1 &
