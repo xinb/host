@@ -48,7 +48,7 @@ jobs:
           sleep 5s
           iperf3 -siperf3 -s > $(echo $VERSION)-$(echo $CONFIG)_server.md 2>&1 &
           sleep 5s
-          proxychains  iperf3 -c 127.0.0.1 -t 10 > $(echo $VERSION)-$(echo $CONFIG)-$(date +'%Y-%m-%dat%H:%M:%S')_client.md 2>&1 &
+          proxychains  iperf3 -c 127.0.0.1 -t 10 > $(echo $VERSION)-$(echo $CONFIG)-$(date +'%Y-%m-%d')_client.md 2>&1 &
           sleep 15s
           popd || exit 1
           cp ./test/$(echo $VERSION)-$(echo $CONFIG)-*_client.md ./result
