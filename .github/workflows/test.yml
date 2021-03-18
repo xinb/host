@@ -20,6 +20,7 @@ jobs:
           wget https://github.com/XTLS/Xray-core/releases/download/v$VERSION/Xray-linux-64.zip
           wget -O server.json https://raw.githubusercontent.com/xinb/host/main/config/$(echo $CONFIG)_server.json
           wget -O client.json https://raw.githubusercontent.com/xinb/host/main/config/$(echo $CONFIG)_client.json
+          unzip Xray-linux-64.zip
           mkdir server
           mkdir client
           cp ./client.json ./client
