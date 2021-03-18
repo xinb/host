@@ -63,7 +63,7 @@ jobs:
       - name: Clean
         run: |
           rm -rf ./test
-          git add ./$(echo $VERSION)-$(echo $CONFIG)-$(date +'%Y-%m-%d')_client.md
+          git add ./result/$(echo $VERSION)-$(echo $CONFIG)-$(date +'%Y-%m-%d')_client.md
       - name: Pull Changes
         uses: actions-go/push@master
         with:
