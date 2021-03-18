@@ -21,7 +21,6 @@ jobs:
       - name: Prepare Xray
         run: |
           mkdir test
-          mkdir result
           pushd test || exit 1
           wget https://github.com/XTLS/Xray-core/releases/download/v$VERSION/Xray-linux-64.zip
           wget -O server.json https://raw.githubusercontent.com/xinb/host/main/config/$(echo $CONFIG)_server.json
