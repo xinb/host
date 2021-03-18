@@ -82,7 +82,12 @@
             },
             "streamSettings": {
                 "network": "tcp",
-                "security": "tls"
+                "security": "tls",
+                "tlsSettings": {
+                    "serverName": "xray.com",
+                    "allowInsecure": true
+                }
+
             }
         },
         {
@@ -91,7 +96,7 @@
             "settings": {
                 "vnext": [
                     {
-                        "address": "xray.com", 
+                        "address": "xray.com",
                         "port": 20004,
                         "users": [
                             {
@@ -105,7 +110,11 @@
             },
             "streamSettings": {
                 "network": "tcp",
-                "security": "tls"
+                "security": "tls",
+                "tlsSettings": {
+                    "serverName": "xray.com",
+                    "allowInsecure": true
+                }
             }
         }
     ],
