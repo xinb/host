@@ -39,6 +39,14 @@
             "settings": {
                 "udp": true
             }
+        },
+        {
+            "tag": "vless_grpc_tls_in",
+            "port": 10806,
+            "protocol": "socks",
+            "settings": {
+                "udp": true
+            }
         }
     ],
     "outbounds": [
@@ -152,6 +160,35 @@
                     "allowInsecure": true
                 }
             }
+        },
+        {
+            "tag": "vless_grpc_tls_in",
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "safe.taobao.com",
+                        "port": 20006,
+                        "users": [
+                            {
+                                "id": "238b0346-3dc8-4af9-8e3e-1f666265b1f2",
+                                "encryption": "none"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "grpc",
+                "security": "tls",
+                "grpcSettings": {
+                    "serviceName": "test"
+                },
+                "tlsSettings": {
+                    "serverName": "safe.taobao.com",
+                    "allowInsecure": true
+                }
+            }
         }
     ],
     "routing": {
@@ -190,6 +227,13 @@
                     "vless_tcp_xtls_in"
                 ],
                 "outboundTag": "vless_tcp_xtls"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "vless_grpc_tls_in"
+                ],
+                "outboundTag": "vless_grpc_tls"
             }
         ]
     }
