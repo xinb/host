@@ -1,0 +1,144 @@
+{
+    "inbounds": [
+        {
+            "tag": "ss_aes128_in",
+            "port": 10801,
+            "protocol": "socks",
+            "settings": {
+                "udp": true
+            }
+        },
+        {
+            "tag": "vmess_tcp_in",
+            "port": 10802,
+            "protocol": "socks",
+            "settings": {
+                "udp": true
+            }
+        },
+        {
+            "tag": "trojan_tcp_tls_in",
+            "port": 10803,
+            "protocol": "socks",
+            "settings": {
+                "udp": true
+            }
+        },
+        {
+            "tag": "vless_tcp_tls_in",
+            "port": 10804,
+            "protocol": "socks",
+            "settings": {
+                "udp": true
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "ss_aes128",
+            "protocol": "shadowsocks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 20001,
+                        "password": "test",
+                        "method": "aes-128-gcm"
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "vmess_tcp",
+            "protocol": "vmess",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 20002,
+                        "users": [
+                            {
+                                "id": "238b0346-3dc8-4af9-8e3e-1f666265b1f2"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        },
+        {
+            "tag": "trojan_tcp_tls",
+            "protocol": "trojan",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "xray.com",
+                        "port": 20003,
+                        "password": "test"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "tls"
+            }
+        },
+        {
+            "tag": "vless_tcp_tls",
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "xray.com", 
+                        "port": 20004,
+                        "users": [
+                            {
+                                "id": "238b0346-3dc8-4af9-8e3e-1f666265b1f2",
+                                "encryption": "none",
+                                "level": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "tls"
+            }
+        }
+    ],
+    "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": [
+                    "ss_aes128_in"
+                ],
+                "outboundTag": "ss_aes128"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "vmess_tcp_in"
+                ],
+                "outboundTag": "vmess_tcp"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "trojan_tcp_tls_in"
+                ],
+                "outboundTag": "trojan_tcp_tls"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "vless_tcp_tls_in"
+                ],
+                "outboundTag": "vless_tcp_tls"
+            }
+        ]
+    }
+}
