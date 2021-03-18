@@ -64,6 +64,7 @@ jobs:
       - name: Clean
         run: |
           rm -rf ./test
+          ls
 
       - name: Pull Changes
         uses: actions-go/push@master
