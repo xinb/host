@@ -38,13 +38,13 @@ jobs:
           ./server/xray -config ./server/server.json > server.file 2>&1 &
           ./client/xray -config ./client/client.json > client.file 2>&1 &
           sleep 5s
-          iperf3 -siperf3 -s > iperf3_server.txt 2>&1 &
+          iperf3 -siperf3 -s > $(echo $VERSION)$(echo $CONFIG)_server.md 2>&1 &
           sleep 5s
-          proxychains  iperf3 -c 127.0.0.1 -t 10 > iperf3_client.txt 2>&1 &
+          proxychains  iperf3 -c 127.0.0.1 -t 10 > $(echo $VERSION)$(echo $CONFIG)_client.md 2>&1 &
           sleep 15s
       - name: Upload files to Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.version }}-${{ matrix.config }}
           path: |
-            ./iperf3*
+            ./*.md
