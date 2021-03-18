@@ -31,6 +31,14 @@
             "settings": {
                 "udp": true
             }
+        },
+        {
+            "tag": "vless_tcp_xtls_in",
+            "port": 10805,
+            "protocol": "socks",
+            "settings": {
+                "udp": true
+            }
         }
     ],
     "outbounds": [
@@ -116,6 +124,34 @@
                     "allowInsecure": true
                 }
             }
+        },
+        {
+            "tag": "vless_tcp_xtls",
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 20005,
+                        "users": [
+                            {
+                                "id": "238b0346-3dc8-4af9-8e3e-1f666265b1f2",
+                                "flow": "xtls-rprx-direct",
+                                "encryption": "none",
+                                "level": 0
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "xtls",
+                "xtlsSettings": {
+                    "serverName": "xray.com",
+                    "allowInsecure": true
+                }
+            }
         }
     ],
     "routing": {
@@ -147,6 +183,13 @@
                     "vless_tcp_tls_in"
                 ],
                 "outboundTag": "vless_tcp_tls"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "vless_tcp_xtls_in"
+                ],
+                "outboundTag": "vless_tcp_xtls"
             }
         ]
     }
