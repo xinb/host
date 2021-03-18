@@ -63,6 +63,7 @@ jobs:
 
       - name: Clean
         run: |
+          ls
           rm -rf ./test
           ls
 
