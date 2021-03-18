@@ -40,6 +40,7 @@ jobs:
           iperf3 -siperf3 -s > iperf3_server.txt 2>&1 &
           proxychains  iperf3 -c 127.0.0.1 -t 10 > iperf3_client.txt 2>&1 &
           sleep 15s
+          sudo cp /etc/proxychains.conf ./iperf3info
       - name: Upload files to Artifacts
         uses: actions/upload-artifact@v2
         with:
