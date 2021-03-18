@@ -15,8 +15,14 @@ jobs:
       VERSION: ${{ matrix.version }}
       CONFIG: ${{ matrix.config }}
     steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v2
+
       - name: Prepare Xray
         run: |
+          mkdir test
+          mkdir result
+          pushd test || exit 1
           wget https://github.com/XTLS/Xray-core/releases/download/v$VERSION/Xray-linux-64.zip
           wget -O server.json https://raw.githubusercontent.com/xinb/host/main/config/$(echo $CONFIG)_server.json
           wget -O client.json https://raw.githubusercontent.com/xinb/host/main/config/$(echo $CONFIG)_client.json
@@ -27,12 +33,14 @@ jobs:
           cp ./server.json ./server
           cp ./xray ./server
           cp ./xray ./client
+          popd || exit 1
 
       - name: Begin Test
         run: |
           sudo apt install iperf3
           sudo apt install proxychains 
           sudo apt install cpulimit
+          pushd test || exit 1
           wget https://raw.githubusercontent.com/xinb/host/main/proxychains.conf
           sudo cp ./proxychains.conf /etc/proxychains.conf
           ./server/xray -config ./server/server.json > server.file 2>&1 &
@@ -40,11 +48,27 @@ jobs:
           sleep 5s
           iperf3 -siperf3 -s > $(echo $VERSION)$(echo $CONFIG)_server.md 2>&1 &
           sleep 5s
-          proxychains  iperf3 -c 127.0.0.1 -t 10 > $(echo $VERSION)$(echo $CONFIG)_client.md 2>&1 &
+          proxychains  iperf3 -c 127.0.0.1 -t 10 > $(echo $VERSION)$(echo $CONFIG)$(date +'%Y-%m-%d %H:%M:%S')_client.md 2>&1 &
           sleep 15s
+          popd || exit 1
+          cp ./test/$(echo $VERSION)$(echo $CONFIG)$(date +'%Y-%m-%d %H:%M:%S')_client.md ./result
       - name: Upload files to Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.version }}-${{ matrix.config }}
           path: |
-            ./*.md
+            ./test/*.md
+
+      - name: Clean
+        run: |
+          rm -rf ./test
+
+      - name: Pull Changes
+        uses: actions-go/push@master
+        with:
+          token: ${{ secrets.TOKEN }}
+          commit-message: ${{ matrix.version }}-${{ matrix.config }}
+          remote: origin
+          author-name: github-actions
+          author-email: github-actions@users.noreply.github.com
+      
