@@ -18,8 +18,8 @@ jobs:
       - name: Prepare Xray
         run: |
           wget https://github.com/XTLS/Xray-core/releases/download/v$VERSION/Xray-linux-64.zip
-          wget -O server.json https://raw.githubusercontent.com/xinb/host/main/config/$CONFIG_server.json
-          wget -O client.json https://raw.githubusercontent.com/xinb/host/main/config/$CONFIG_client.json
+          wget -O server.json https://raw.githubusercontent.com/xinb/host/main/config/$(echo $CONFIG)_server.json
+          wget -O client.json https://raw.githubusercontent.com/xinb/host/main/config/$(echo $CONFIG)_client.json
           mkdir server
           mkdir client
           cp ./client.json ./client
