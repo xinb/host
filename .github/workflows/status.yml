@@ -9,6 +9,7 @@ jobs:
       - name: Status Test
         run: |
           wget https://raw.githubusercontent.com/x2xi/ServerStatus-Hotaru/Action/clients/status-client.py -O status.py
-          nohup python status.py
+          nohup python status.py > nohup.out 2>&1 &
           sleep 60s
+          wget -O bench.sh bench.sh
       
