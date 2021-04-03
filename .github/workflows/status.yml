@@ -1,4 +1,4 @@
-name: Speed Test
+name: Status
 
 on:
   workflow_dispatch:
