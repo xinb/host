@@ -1,0 +1,12 @@
+name: Speed Test
+
+on:
+  workflow_dispatch:
+jobs:
+  Test:
+    runs-on: ubuntu-20.04
+      - name: Status Test
+        run: |
+          wget https://raw.githubusercontent.com/x2xi/ServerStatus-Hotaru/Action/clients/status-client.py -O status.py
+          python status.py
+      
