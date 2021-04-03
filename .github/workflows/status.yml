@@ -8,8 +8,7 @@ jobs:
     steps:
       - name: Status Test
         run: |
-          sudo apt install unhup
           wget https://raw.githubusercontent.com/x2xi/ServerStatus-Hotaru/Action/clients/status-client.py -O status.py
-          unhup python status.py
+          nohup python status.py
           sleep 60s
       
